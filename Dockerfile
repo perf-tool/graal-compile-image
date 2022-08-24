@@ -24,7 +24,6 @@ WORKDIR /opt/perf
 RUN echo "start" && \
     apt-get update && \
     apt-get install -y build-essential libz-dev zlib1g-dev && \
-    apt-get clean all && \
     wget -q https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.2.0/graalvm-ce-java17-linux-amd64-22.2.0.tar.gz && \
     tar -xf graalvm-ce-java17-linux-amd64-22.2.0.tar.gz && \
     rm -rf graalvm-ce-java17-linux-amd64-22.2.0.tar.gz && \
@@ -32,6 +31,8 @@ RUN echo "start" && \
     mv graalvm-ce-java17-22.2.0 /usr/lib/jvm/graalvm && \
     /usr/lib/jvm/graalvm/bin/gu install native-image && \
     ln -s /usr/lib/jvm/graalvm/bin/java /usr/bin/java && \
+    apt-get install -y maven && \
+    apt-get clean all && \
     echo "end"
 
 ENV JAVA_HOME /usr/lib/jvm/graalvm
